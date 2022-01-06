@@ -27,7 +27,7 @@ export class Encoder {
   encode(input: string) { 
     for (let letter of input) {
       // Check for space
-      if (letter === " ") this.output += " ";
+      if (letter === " ") return this.output += " ";
 
       // Plugboard
       letter = this.plugencode(letter) as string;
@@ -72,4 +72,3 @@ export class Encoder {
     return(this.output);
   }
 }
-
