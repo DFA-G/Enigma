@@ -6,7 +6,7 @@ const rotor1Alphabet = "dmtwsilruyqnkfejcazbpgxohv".split("");
 const rotor2Alphabet = "hqzgpjtmoblncifdyawveusrkx".split("");
 const rotor3Alphabet = "uqntlszfmrehdpxkibvygjcwoa".split("");
 
-export class Encoder { 
+export class Encoder {
   rotors: [number, number, number];
   plugboard: Record<string, string>;
   output: string;
@@ -15,16 +15,16 @@ export class Encoder {
     this.rotors = config.rotors as [number, number, number];
     this.output = "";
   }
-  
+
   plugencode(input: string) {
     for (const [key, value] of Object.entries(this.plugboard)) {
       if (input === key) return value;
       if (input === value) return key;
+      return input;
     }
-    
   }
 
-  encode(input: string) { 
+  encode(input: string) {
     for (let letter of input) {
       // Check for space
       if (letter === " ") return this.output += " ";
@@ -63,12 +63,11 @@ export class Encoder {
       if (letterNum + this.rotors[0] > 25) letterNum -= 26;
       letter = rotor1Alphabet[letterNum + this.rotors[0]];
       letterNum = rotor1Alphabet.indexOf(letter);
-
       // Plugboard
       letter = this.plugencode(letter) as string;
 
       this.output += letter;
     }
-    return(this.output);
+    return this.output;
   }
 }
